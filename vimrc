@@ -23,10 +23,14 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
 Plugin 'rking/ag.vim'
 Plugin 'mileszs/ack.vim'
-Plugin 'SpaceVim/SpaceVim'
+Plugin 'dyng/ctrlsf.vim'
+"Plugin 'SpaceVim/SpaceVim'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'Yggdroot/LeaderF'
-
+Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'SpaceVim/gtags.vim'
+" Plugin 'joereynolds/gtags-scope'
+Plugin 'chrisbra/csv.vim'
 call vundle#end()
 " key map in normal
 map LB 0
@@ -42,43 +46,17 @@ map s <nop>
 map S :w<CR>
 map Q :q<CR>
 map <leader><leader> <Esc>
-map <leader><leader>w <Esc>:w<CR>
-map <leader><leader>q <Esc>:q!<CR>
+map <leader>w <Esc>:w<CR>
+map <leader>q <Esc>:q!<CR>
 map <leader><leader><leader> <Esc>:wq<CR>
 map <leader><leader><leader><leader> <Esc>:q!<CR>
 
 " key map in insert
 inoremap <leader><leader> <Esc>
-inoremap <leader><leader>w <Esc>:w<CR>
-inoremap <leader><leader>q <Esc>:q<CR>
+inoremap <leader>w <Esc>:w<CR>
+inoremap <leader>q <Esc>:q<CR>
 inoremap <leader><leader><leader> <Esc>:wq<CR>
 inoremap <leader><leader><leader><leader> <Esc>:q!<CR>
-inoremap <leader>a <space>a
-inoremap <leader>b <space>b
-inoremap <leader>c <space>c
-inoremap <leader>d <space>d
-inoremap <leader>e <space>e
-inoremap <leader>f <space>f
-inoremap <leader>g <space>g
-inoremap <leader>h <space>h
-inoremap <leader>i <space>i
-inoremap <leader>j <space>j
-inoremap <leader>k <space>k
-inoremap <leader>l <space>l
-inoremap <leader>m <space>m
-inoremap <leader>n <space>n
-inoremap <leader>o <space>o
-inoremap <leader>p <space>p
-inoremap <leader>q <space>q
-inoremap <leader>r <space>r
-inoremap <leader>s <space>s
-inoremap <leader>t <space>t
-inoremap <leader>u <space>u
-inoremap <leader>v <space>v
-inoremap <leader>w <space>w
-inoremap <leader>x <space>x
-inoremap <leader>y <space>y
-inoremap <leader>z <space>z
 
 set backspace=2
 set ruler
@@ -118,7 +96,11 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 "NerdTree Setting
 let NERDTreeShowHidden=1
 let NERDTreeShowBookmarks=1
+let NERDTreeWinSize=31
+let NERDTreeChDirMode=1
 "highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+
+
 "leaderf config
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
@@ -126,9 +108,9 @@ let g:Lf_UseCache = 0
 let g:Lf_UseVersionControlTool = 0
 let g:Lf_IgnoreCurrentBufferName = 1
 " popup mode
-" let g:Lf_WindowPosition = 'popup'
-" let g:Lf_PreviewInPopup = 1
-" let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+"let g:Lf_WindowPosition = 'popup'
+"let g:Lf_PreviewInPopup = 1
+"let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 " let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
 let g:Lf_ShortcutF = "<leader>ff"
@@ -145,9 +127,12 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 
 " should use `Leaderf gtags --update` first
 let g:Lf_GtagsAutoGenerate = 0
-let g:Lf_Gtagslabel = 'native-pygments'
+let g:Lf_Gtagslabel = 'native'
 noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
 noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+" gtags jump
+"set autochdir
+set tags=./tags,tags;/
