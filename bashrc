@@ -60,15 +60,15 @@ _b'
 alias l='ls'
 alias lll='ls -ahlt'
 alias llll='ls -ahls'
-alias gnb='cd /$gnbroot'
-alias up='cd /$gnbroot/uplane/'
+alias gnb='cd $gnbroot'
+alias up='cd $gnbroot/uplane/'
 alias h4='cd /var/fpwork/h4hu/'
 alias tt='tmux attach -t 0'
 alias clion='cd /var/fpwork/${USER}/gnb/uplane && 5gg && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on-gcc9 && clion.sh'
 alias rmd='rm -rf'
 alias getcode='git clone "ssh://h4hu@gerrit.ext.net.nokia.com:29418/MN/5G/NB/gnb" && (cd "gnb" && gitdir=$(git rev-parse --git-dir); curl -o ${gitdir}/hooks/commit-msg https://gerrit.ext.net.nokia.com/gerrit/static/commit-msg ; chmod +x ${gitdir}/hooks/commit-msg)'
-alias 5gg='source /$gnbroot/set_gnb_env.sh '
-alias 5g='source /$gnbroot/set_gnb_env.sh '
+alias 5gg='source $gnbroot/set_gnb_env.sh '
+alias 5g='source $gnbroot/set_gnb_env.sh '
 alias pp="git push origin HEAD:refs/for/master"
 alias gsubmodule='gnb && rm -rf ./externals/*&&git checkout externals/ && git submodule sync && git submodule update --init --recursive'
 alias losct="source L2-LO/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on && buildscript/L2-LO/run build && buildscript/L2-LO/run sct_build "
@@ -94,6 +94,7 @@ export cmprdst=10.57.233.84:/user/toor4nsn/
 export PARALLEL_BUILD_JOBS=16
 alias cleantheshell='export > ~/.tmpexport && for it in `cat ~/.cleanshell.tmp ~/.tmpexport | cut -d "=" -f 1 | sort | uniq -u | cut -d " " -f 3`; do unset $it 2>&-; done'
 alias cs='export > /home/h4hu/.tmpexport && for it in `cat ~/.cleanshell.tmp ~/.tmpexport | cut -d "=" -f 1 | sort | uniq -u | cut -d " " -f 3`; do unset $it 2>&-; done'
+alias chgnb='unset gnbroot &&  gnbroot=`readlink -f ./`'
 #export TMPDIR=/var/fpwork/h4hu/tmp
 #PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapped/:/home/h4hu/clion-2020.2.4/bin:${PATH}:/home/h4hu/soft/bin/
 PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapped/:/home/h4hu/clion-2020.2.4/bin:${PATH}:/home/h4hu/soft/bin/
@@ -140,7 +141,7 @@ function load_avg {
 #export PS1='[\u@$(host_name)/$(who_login) \W][$(load_avg)]\$'
 export PS1='[$(who_login)/$(load_avg) \W]\$'
 ######################
-#GNB_ENV=/$gnbroot/set_gnb_env.sh 
+#GNB_ENV=$gnbroot/set_gnb_env.sh 
 #if [ -f $GNB_ENV ];then
 #source $GNB_ENV 
 #fi
