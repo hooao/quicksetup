@@ -25,31 +25,24 @@ ak_walk'
 alias akbuild='_b(){
 case $1 in 
  l2ps|ps) 
-   echo "==========try to build $1============" 
    5gg && up && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-gcc9 && ./buildscript/L2-PS/run build
    ;;
  l2pssct|sct) 
-   echo "==========try to build $1============" 
    5gg&&up&& source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on-gcc9 &&  mkdir -p build/tickler && cd build/tickler && cmake -GNinja ../../sct/tickler -DUNITTESTS_ENABLED=ON -DSCT_COMP_L2PS=ON && ninja -j $PARALLEL_BUILD_JOBS check_l2ps
 ;; 
  l2psut) 
-   echo "==========try to build $1============" 
    5gg && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on-gcc9 && ./buildscript/L2-PS/run ut_build && ./buildscript/L2-PS/run ut_run
    ;;
  l2pscmpr) 
-   echo "==========try to build $1============" 
    source L2-PS/setup.sh --target=cmpr && ./buildscript/L2-PS/run build
    ;;
  l2psfuse) 
-   echo "==========try to build $1============" 
    5gg&&up&& source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-gcc9 && buildscript/L2-PS/run sct_build --for-fuse-target
    ;;
  l2pstarget) 
-   echo "==========try to build $1============" 
    5gg && up && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-gcc9 && buildscript/L2-PS/run sct_build --for-target
    ;;
  l2pspack) 
-   echo "==========try to build $1============" 
    up && ./buildscript/L2-PS/run package
    ;;
  *)
@@ -68,23 +61,14 @@ alias clion='cd /var/fpwork/${USER}/gnb/uplane && 5gg && source L2-PS/setup.sh -
 alias rmd='rm -rf'
 alias getcode='git clone "ssh://h4hu@gerrit.ext.net.nokia.com:29418/MN/5G/NB/gnb" && (cd "gnb" && gitdir=$(git rev-parse --git-dir); curl -o ${gitdir}/hooks/commit-msg https://gerrit.ext.net.nokia.com/gerrit/static/commit-msg ; chmod +x ${gitdir}/hooks/commit-msg)'
 alias 5gg='source $gnbroot/set_gnb_env.sh '
-alias 5g='source $gnbroot/set_gnb_env.sh '
 alias pp="git push origin HEAD:refs/for/master"
 alias gsubmodule='gnb && rm -rf ./externals/*&&git checkout externals/ && git submodule sync && git submodule update --init --recursive'
-alias losct="source L2-LO/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on && buildscript/L2-LO/run build && buildscript/L2-LO/run sct_build "
-alias lo="source L2-LO/setup.sh --target=asik-x86_64-ps_lfs && ./buildscript/L2-LO/run build"
-alias l2hi="source L2-HI/set_build_env.sh build_asik && ./buildscript/L2-HI/run build"
-alias l2hicmpr="source L2-HI/set_build_env.sh build_cmpr && ./buildscript/L2-HI/run build"
-alias l2hisct="source L2-HI/set_build_env.sh sct_asik_host && ./buildscript/L2-HI/run sct_build"
-alias l2hiut="source L2-HI/set_build_env.sh ut && ./buildscript/L2-HI/run ut_build"
-alias l2rtcommon='5gg && up && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-gcc9 && ./buildscript/L2-RT_common/run build && ./buildscript/L2-RT_common/run package'
 #alias pre="git log  --pretty=format:'%ci %h %s    ||| %C(green)<%an> %ae%Creset' "
 alias pre="git log  --pretty=format:'%ci %h %s %C(green)[%an]' "
 alias ss="source ~/.bashrc"
 #alias gt="export cur=`pwd` && gtags --skip-symlink=d -O>/dev/null && if [ ! -f "GPATH" ]; then ln -s /tmp`pwd`/GRTAGS GRTAGS && ln -s /tmp`pwd`/GPATH GPATH && ln -s /tmp`pwd`/GTAGS GTAGS; fi &"
 alias gt="export cur=`pwd` && gtags -O>/dev/null && if [ ! -f "GPATH" ]; then ln -s /tmp`pwd`/GRTAGS GRTAGS && ln -s /tmp`pwd`/GPATH GPATH && ln -s /tmp`pwd`/GTAGS GTAGS; fi &"
 alias gtc="rm -f GRTAGS GTAGS GPATH"
-alias genjson="sed "s#/var/fpwork/h4hu#C:/Users/h4hu/git#g" build/l2_ps/build/compile_commands.json > compile_commands.json"
 alias gits='git status'
 alias gg='git log'
 alias gfetch='git clone "ssh://h4hu@gerrit.ext.net.nokia.com:29418/MN/5G/NB/gnb" && (cd "gnb" && gitdir=$(git rev-parse --git-dir); curl -o ${gitdir}/hooks/commit-msg https://gerrit.ext.net.nokia.com/gerrit/static/commit-msg ; chmod +x ${gitdir}/hooks/commit-msg)'
@@ -172,3 +156,4 @@ fi
 export TERM=xterm
 export > .cleanshell.tmp
 
+. "$HOME/.cargo/env"
