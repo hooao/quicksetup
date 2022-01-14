@@ -9,11 +9,14 @@ if [ -f ~/.nberc ]; then
 	. ~/.nberc
 fi
 if [ -f ~/.extra_bashrc ]; then
-    . ~/.extra_bashrc
+    ccache_check=`which ccache 2>/dev/null`
+#    if [ "$ccache_check" != "" ]; then
+        . ~/.extra_bashrc
+#    fi
 fi
 
 
-#export TMPDIR=/var/fpwork/h4hu/tmp
+export TMPDIR=/var/fpwork/h4hu/tmp
 #PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapped/:/home/h4hu/clion-2020.2.4/bin:${PATH}:/home/h4hu/soft/bin/
 PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapped/:/home/h4hu/clion-2020.2.4/bin:${PATH}:/home/h4hu/soft/bin/
 ########ECE_HZH_SQG05###############
@@ -47,22 +50,24 @@ function git_branch {
       if [ "${branch}" = "(no branch)" ];then
           branch="(`git rev-parse --short HEAD`...)"
       fi
-      echo "/$branch"
+#      echo "<${branch}>"
+      echo -e " <\033[32m${branch}\033[0m> "
   fi
 }
 
 function load_avg {
-    avg_val="`cat /proc/loadavg | cut -d ' ' -f 1 | cut -d '.' -f 1`"
-    echo "$avg_val%"
+#    avg_val="`cat /proc/loadavg | cut -d ' ' -f 1 | cut -d '.' -f 1`"
+    avg_val=`cat /proc/loadavg | awk '{print int($1),int($3)}'`
+    echo "${avg_val}"
 }
 
 function print_docker {
     if [ "$ISDOCKER" != "0" ]; then
-        echo " Docker:"
+        echo " dk:"
     fi
 }
 #export PS1='[\u@$(host_name)/$(who_login) \W][$(load_avg)]\$'
-export PS1='[$(who_login)/$(load_avg)$(print_docker) \W]\$'
+export PS1='[$(who_login):$(print_docker)\W]$(git_branch)'
 
 ##git###
 export EDITOR=vim #set git default editor
@@ -76,9 +81,7 @@ export MAKEOBJDIRPREFIX=/tmp/
 if [ "$ISDOCKER" == "0" ]; then
 mkdir -p /var/fpwork/h4hu/vscode-server
 mkdir -p /var/fpwork/h4hu/tmp 
-export TMPDIR=/var/fpwork/h4hu/tmp
 fi
-
 export TERM=xterm
 # save current environment
 #export > .cleanshell.tmp
