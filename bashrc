@@ -16,7 +16,7 @@ if [ -f ~/.extra_bashrc ]; then
 fi
 
 
-export TMPDIR=/var/fpwork/h4hu/tmp
+#export TMPDIR=/var/fpwork/h4hu/tmp
 #PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapped/:/home/h4hu/clion-2020.2.4/bin:${PATH}:/home/h4hu/soft/bin/
 PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapped/:/home/h4hu/clion-2020.2.4/bin:${PATH}:/home/h4hu/soft/bin/
 ########ECE_HZH_SQG05###############
@@ -27,8 +27,8 @@ PATH=/home/h4hu/soft/bin/bin:/home/h4hu/soft/bin:/opt/tmux/x86_64/1.9a/bin-wrapp
 #source seesetenv -n python3 python3=3.5.1
 #source seesetenv -n llvm llvm=5.0.0.g610
 
-export https_proxy=http://10.144.1.10:8080
-export http_proxy=http://10.144.1.10:8080
+export https_proxy=http://10.158.100.8:8080
+export http_proxy=http://10.158.100.8:8080
 export no_proxy=localhost,127.0.0.0/8,*.local,nsn-net.net,inside.nokiasiemensnetworks.com,access.nokiasiemensnetworks.com,nsn-intra.net,nsn-rdnet.net,nokia.com,alcatel-lucent.com
 
 function who_login {
@@ -50,8 +50,7 @@ function git_branch {
       if [ "${branch}" = "(no branch)" ];then
           branch="(`git rev-parse --short HEAD`...)"
       fi
-#      echo "<${branch}>"
-      echo -e " <\033[32m${branch}\033[0m> "
+      echo "<${branch}>"
   fi
 }
 
@@ -67,7 +66,7 @@ function print_docker {
     fi
 }
 #export PS1='[\u@$(host_name)/$(who_login) \W][$(load_avg)]\$'
-export PS1='[$(who_login):$(print_docker)\W]$(git_branch)'
+export PS1='[$(who_login):$(print_docker) \W]$(git_branch)\$ '
 
 ##git###
 export EDITOR=vim #set git default editor

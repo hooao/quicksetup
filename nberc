@@ -23,7 +23,7 @@ alias rmd='rm -rf'
 alias getcode='git clone "ssh://$USER@gerrit.ext.net.nokia.com:29418/MN/5G/NB/gnb" && (cd "gnb" && gitdir=$(git rev-parse --git-dir); curl -o ${gitdir}/hooks/commit-msg https://gerrit.ext.net.nokia.com/gerrit/static/commit-msg ; chmod +x ${gitdir}/hooks/commit-msg)'
 alias pp='branch=`git branch | grep ^\* | cut -c 3-` && git push origin HEAD:refs/for/$branch'
 alias ppp='branch=`git branch | grep ^\* | cut -c 3-` && git push origin HEAD:refs/for/$branch%private'
-alias gsubmodule='gnb && git checkout externals/ && git submodule sync --recursive && git submodule update --init --recursive'
+alias gsubmodule='gnb && git checkout externals/ && git submodule sync --recursive && git submodule update --init --recursive && ./buildscript/universal/run_nb_scripts.sh'
 #alias pre="git log  --pretty=format:'%ci %h %s    ||| %C(green)<%an> %ae%Creset' "
 alias pre="git log origin/master --pretty=format:'%ci %h %s %C(green)[%an]' "
 alias ss="source ~/.bashrc"
@@ -84,7 +84,7 @@ case $ in
 ak_push'
 
 alias akrun='ak_run(){
-$gnbroot/uplane/sct/run_on_asik/execute_one_sct_host.sh --l2ps --test $@
+$gnbroot/uplane/sct/run_on_asik/SRunner.py host --l2ps --test $@
 }
 ak_run'
 
@@ -122,7 +122,7 @@ case $1 in
    5gg && gsubmodule && up && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on-gcc9 && ./buildscript/L2-RT_common/run ut_build
    ;;
  lo) 
-   5gg && gsubmodule && up && source L2-LO/setup.sh --target=asik-x86_64-ps_lfs-gcc9 && ./buildscript/L2-LO/run build
+   5gg && gsubmodule && up && source L2-LO/setup.sh --target=sm6-snowfish-dynamic-linker-on-gcc9 && ./buildscript/L2-LO/run build
    ;;
  *)
    echo "Supported parameter [l2ps,ps/lo/l2psut/l2psut/l2pssct,sct/fuse,l2psfuse/l2pstarget/l2pspack/l2commut]" ;;
