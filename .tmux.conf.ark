@@ -1,0 +1,50 @@
+# 解除默认前缀
+#unbind C-b
+# 设置自定义前缀
+#set -g prefix C-a
+# 采用vim的操作方式
+setw -g mode-keys vi
+# 窗口序号从1开始计数
+set -g base-index 1
+# 开启鼠标模式
+set-option -g mouse on
+
+# 通过前缀+KJHL快速切换pane
+bind -r k select-pane -U
+bind -r j select-pane -D
+bind -r h select-pane -L
+bind -r l select-pane -R
+
+# panes 分割线颜色
+#set -g pane-border-bg colour236
+#set -g pane-border-fg colour236
+#set -g pane-active-border-bg colour232
+#set -g pane-active-border-fg colour232
+# 绑定Ctrl+hjkl键为面板上下左右调整边缘的快捷指令
+bind -r ^k resizep -U 10 # 绑定Ctrl+k为往↑调整面板边缘10个单元格
+bind -r ^j resizep -D 10 # 绑定Ctrl+j为往↓调整面板边缘10个单元格
+bind -r ^h resizep -L 10 # 绑定Ctrl+h为往←调整面板边缘10个单元格
+bind -r ^l resizep -R 10 # 绑定Ctrl+l为往→调整面板边缘10个单元格
+set-option -g history-limit 30000
+set -g status-bg magenta 
+set -g status-fg white
+set-option -g status-left-length 80 
+set-option -g status-right-length 50 
+set -g window-status-format '#I:#(pwd="#{pane_current_path}"; echo ${pwd####*/})#F'
+#set -g window-status-current-format '#I:#(pwd="#{pane_current_path}"; echo ${pwd})#F'
+set -g window-status-current-format '#(echo "#{pane_current_path}")'
+set -g status-interval 2
+setw -g window-status-style fg=cyan  # 活动窗口颜色为蓝绿色
+
+#set -g status-right "#{sysstat_cpu} | #{sysstat_mem} | #{sysstat_swap} | #{sysstat_loadavg} | #[fg=cyan]#(echo $USER)#[default]@#H"
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'samoshkin/tmux-plugin-sysstat'
+set -g status-right "#{sysstat_cpu}|#{sysstat_mem}|#{sysstat_swap}|#{sysstat_loadavg}"
+#set -g status-left "Users: #(who | awk '{print $1}' | sort | uniq | wc -l) ReadyTasks: #(cat /proc/loadavg | awk '{print $4}' | awk -F '/' '{print $1}') | Branch: #(pwd="#{pane_current_path}";git -C ${pwd} branch 2>/dev/null | grep \"^\*\" | sed -e \"s/^\*\ //\")"
+set -g status-left "Users: #(who | awk '{print $1}' | sort | uniq | wc -l) | GitBranch#(git -C '#{pane_current_path}' branch | grep ^*) #(git -C '#{pane_current_path}' log | grep -oE '^Author.*<' | head -1| sed -e 's/[< ]//g') | TaskQueue: #(cat /proc/loadavg | awk '{print $4}' | awk -F '/' '{print $1}') "
+set -g status-justify centre
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+
