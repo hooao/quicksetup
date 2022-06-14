@@ -2,7 +2,11 @@ USER=`whoami`
 
 ISDOCKER=`cat /proc/1/cgroup | grep docker | wc -l`
 if [ "$ISDOCKER" == "0" ]; then
-gnbroot="/var/fpwork/$USER/gnb"
+if [ $(dmesg | grep VMware | wc -l) != "0" ]; then
+  gnbroot="/data/git/gnb"
+else
+  gnbroot="/var/fpwork/$USER/gnb"
+fi
 alias 5gg='source $gnbroot/set_gnb_env.sh'
 else
 gnbroot="/workspace/"
