@@ -45,6 +45,7 @@ export PARALLEL_BUILD_JOBS=16
 alias cleantheshell='export > ~/.tmpexport && for it in `cat ~/.cleanshell.tmp ~/.tmpexport | cut -d "=" -f 1 | sort | uniq -u | cut -d " " -f 3`; do unset $it 2>&-; done'
 alias cs='export > /home/$USER/.tmpexport && for it in `cat ~/.cleanshell.tmp ~/.tmpexport | cut -d "=" -f 1 | sort | uniq -u | cut -d " " -f 3`; do unset $it 2>&-; done'
 alias chgnb='unset gnbroot &&  gnbroot=`readlink -f ./`'
+alias updcode="git fetch && git reset --hard origin/master"
 
 
 
@@ -114,7 +115,7 @@ case $1 in
    5gg&& gsubmodule &&up&& source L2-PS/setup.sh --target=sm6-snowfish-dynamic-linker-on-gcc9 && buildscript/L2-PS/run sct_build --for-fuse-l2ps-host
    ;; 
  l2psut) 
-   5gg && gsubmodule && up && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-dynamic-linker-on-gcc9 && ./buildscript/L2-PS/run ut_build && ./buildscript/L2-PS/run ut_run
+   5gg && gsubmodule && up && source L2-PS/setup.sh --target=sm6-snowfish-dynamic-linker-on-gcc9 && ./buildscript/L2-PS/run ut_build && ./buildscript/L2-PS/run ut_run
    ;;
  l2pstarget) 
    5gg && gsubmodule && up && source L2-PS/setup.sh --target=asik-x86_64-ps_lfs-gcc9 && buildscript/L2-PS/run sct_build --for-target
